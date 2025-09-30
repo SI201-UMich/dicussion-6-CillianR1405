@@ -55,10 +55,12 @@ class PollReader():
         """
 
         # iterate through each row of the data
-        for i in self.raw_data:
+        for i in self.raw_data[1:]:
+
 
             # split up the row by column
             seperated = i.split(',')
+
 
             # map each part of the row to the correct column
             self.data_dict['month'].append(seperated[0])
@@ -139,13 +141,13 @@ class PollReader():
                    Positive values indicate an increase, negative values indicate a decrease.
         """
 
-        early_harris = sum(self.data_dict["Harrus result"][-30:]) / 30
+        early_harris = sum(self.data_dict["Harris result"][-30:]) / 30
         early_trump = sum(self.data_dict["Trump result"][-30:]) / 30
 
-        late_harris = sum(self.data_dict["Harrus result"][:30]) / 30
-        late_trump = sum(self.data_dict["Harrus result"][:30]) / 30
+        late_harris = sum(self.data_dict["Harris result"][:30]) / 30
+        late_trump = sum(self.data_dict["Trump result"][:30]) / 30
 
-        return ((late_harris - early_harris), (late_trump, early_trump))
+        return ((late_harris - early_harris), (late_trump - early_trump))
 
 
 
